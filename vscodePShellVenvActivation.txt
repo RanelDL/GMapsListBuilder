@@ -10,3 +10,5 @@ At line:1 char:1
 PS C:\Users\USER\Desktop\GmapsBuilder\GMapsListBuilder> Set-ExecutionPolicy -Scope CurrentUser remotesigned
 PS C:\Users\USER\Desktop\GmapsBuilder\GMapsListBuilder> & c:/Users/USER/Desktop/GmapsBuilder/GMapsListBuilder/venv/Scripts/Activate.ps1
 (venv) PS C:\Users\USER\Desktop\GmapsBuilder\GMapsListBuilder> 
+
+OR ctrl+shift+p >python: select interpreter -->> select the venv python.exe
