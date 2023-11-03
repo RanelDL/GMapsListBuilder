@@ -7,14 +7,16 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 
 class Automaps:
-    def __init__(self):
-        self.driver = self.launch_gmaps()
+
+    def __init__(self, url):
+        self.url = url
+        self.driver = self.launch_page()
 
     def clear_searchbar(self):
         clear_button = self.driver.find_element(By.CSS_SELECTOR, "#searchbox > div.lSDxNd > button")
         clear_button.click()
 
-    def launch_gmaps(self):
+    def launch_page(self):
         # Chrome options to load signed-in chrome profile
         chrome_options = Options()
         chrome_options.add_argument("--user-data-dir=C:\\Users\\USER\\AppData\\Local\\Google\\Chrome for Testing\\User Data\\") # Opens chrome profile
@@ -22,11 +24,11 @@ class Automaps:
         chrome_options.add_experimental_option("detach", True)
 
         driver  = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=chrome_options)
-        driver.get("https://www.google.com/maps/@32.0851663,34.8955189,15z?authuser=0&entry=ttu")
+        driver.get(self.url)
         print( driver.title)
 
         # wait for webpage to load completely
-        driver.implicitly_wait(10)
+        driver.implicitly_wait(3)
         return driver
 
     def enter_address(self, address):
@@ -44,7 +46,8 @@ class Automaps:
         bombSheltersList.click()
 
 def main():
-    auto = Automaps()
+    googleMapsUrl ="https://www.google.com/maps/@32.0851663,34.8955189,15z?authuser=0&entry=ttu" 
+    auto = Automaps(googleMapsUrl)
     #driver = launch_gmaps()
     
     for address in range(1):
