@@ -5,6 +5,7 @@ from webdriver_manager.chrome import ChromeDriverManager
 
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
+import time
 
 class Automaps:
 
@@ -35,7 +36,7 @@ class Automaps:
         # Searchbar element
         textbox = self.driver.find_element(By.ID, "searchboxinput") # or XmI62e for the form itself
         # Input address into searchbox , add petah tikva prefix to each local address
-        textbox.send_keys(" פתח תקווה " +"שפרינצק 7")
+        textbox.send_keys(" פתח תקווה " + address)
         textbox.send_keys(Keys.ENTER)
 
     # Generalize this method to take list name as string and integrate in xpath search or by name
@@ -46,20 +47,21 @@ class Automaps:
         bombSheltersList.click()
 
 def main():
-    googleMapsUrl ="https://www.google.com/maps/@32.0851663,34.8955189,15z?authuser=0&entry=ttu" 
-    auto = Automaps(googleMapsUrl)
+    GMAPS_URL ="https://www.google.com/maps/@32.0851663,34.8955189,15z?authuser=0&entry=ttu" 
+    auto = Automaps(GMAPS_URL)
     #driver = launch_gmaps()
-    
-    for address in range(1):
-        auto.enter_address(address)
+    with open("addresses_wrk_cpy.txt", 'rt') as ADDR_FILE:
+        for address in ADDR_FILE:
+            auto.enter_address(address)
 
-        # Click "save" button (opens save-dropdown menu)
-        auto.save_to_list()
-        # Save location in "bombshelters" (or other name) list
+            # Click "save" button (opens save-dropdown menu) & save to 'bombshelters' list
+            # auto.save_to_list()
+            time.sleep(3) 
 
-        # Clear searchbox
-        #clear_searchbar(driver)
-        
+            # Clear searchbox
+            auto.clear_searchbar()
+    auto.driver.quit()
+            
 if __name__ == "__main__":
     main()
 #drive.quit() #if the page opens but no action is taken(it freezes) it means the page's already open/in use elsewhere!
