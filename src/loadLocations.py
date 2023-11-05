@@ -36,7 +36,12 @@ class Automaps:
         # Searchbar element
         textbox = self.driver.find_element(By.ID, "searchboxinput") # or XmI62e for the form itself
         # Input address into searchbox , add petah tikva prefix to each local address
-        textbox.send_keys(" פתח תקווה " + address)
+        # text = address.split()
+        # if text[0].isnumeric():
+            # address = address[2:] + str(text[0])
+        # print(text, "".join(text)) 
+        # print(address, text, text[0])
+        textbox.send_keys("פתח תקווה," + address )#text)#address + " פתח תקווה ")
         textbox.send_keys(Keys.ENTER)
 
     # Generalize this method to take list name as string and integrate in xpath search or by name
@@ -50,14 +55,18 @@ def main():
     GMAPS_URL ="https://www.google.com/maps/@32.0851663,34.8955189,15z?authuser=0&entry=ttu" 
     auto = Automaps(GMAPS_URL)
     #driver = launch_gmaps()
-    with open("addresses_wrk_cpy.txt", 'rt') as ADDR_FILE:
+    # with open("addresses_wrk_cpy.txt", 'rt') as ADDR_FILE:
+    with open("testfile.txt", 'rt') as ADDR_FILE:
         for address in ADDR_FILE:
             auto.enter_address(address)
 
             # Click "save" button (opens save-dropdown menu) & save to 'bombshelters' list
-            # auto.save_to_list()
-            time.sleep(3) 
-
+            time.sleep(1)
+            try:
+                auto.save_to_list()
+            except Exception as e:
+                print(e, " coudn't add: " + address)
+            time.sleep(1) 
             # Clear searchbox
             auto.clear_searchbar()
     auto.driver.quit()
