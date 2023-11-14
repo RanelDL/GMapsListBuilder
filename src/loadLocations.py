@@ -50,26 +50,41 @@ class Automaps:
         button.click()
         bombSheltersList = self.driver.find_element(By.CSS_SELECTOR, "#fDahXd div:nth-of-type(6)")
         bombSheltersList.click()
+    def add_note(self, note):
+        button = self.driver.find_element(By.CSS_SELECTOR, "#QA0Szd > div > div > div.w6VYqd > div.bJzME.tTVLSc > div > div.e07Vkf.kA9KIf > div > div > div:nth-child(7) > div > div.m6QErb.Duzcee > div.m6QErb.tLjsW > div:nth-child(1) > button > div")
+        button.click()
+        textbox = self.driver.find_element(By.CSS_SELECTOR, "#modal-dialog > div > div.hoUMge > div > div.yFnP6d > div > div > div.Xsdp7b > textarea")
+        textbox.send_keys(note)
+        doneButton = self.driver.find_element(By.CSS_SELECTOR, "#modal-dialog > div > div.hoUMge > div > div.yFnP6d > div > div > div.vV6Pxc > div.LKVNAb > button.okDpye.PpaGLb.mta2Ab")
+        doneButton.click()
 
 def main():
     GMAPS_URL ="https://www.google.com/maps/@32.0851663,34.8955189,15z?authuser=0&entry=ttu" 
     auto = Automaps(GMAPS_URL)
     #driver = launch_gmaps()
     # with open("addresses_wrk_cpy.txt", 'rt') as ADDR_FILE:
+    notes = open("notes.txt",rt)
     with open("testfile.txt", 'rt') as ADDR_FILE:
         for address in ADDR_FILE:
+
+            note = notes.readline()
+            
             auto.enter_address(address)
 
             # Click "save" button (opens save-dropdown menu) & save to 'bombshelters' list
             time.sleep(1)
             try:
-                auto.save_to_list()
+                # adding notes modification:
+                # auto.save_to_list()
+                auto.add_note(note)
+
             except Exception as e:
                 print(e, " coudn't add: " + address)
             time.sleep(1) 
             # Clear searchbox
             auto.clear_searchbar()
     auto.driver.quit()
+    notes.close()
             
 if __name__ == "__main__":
     main()
