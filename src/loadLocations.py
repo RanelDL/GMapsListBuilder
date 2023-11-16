@@ -36,16 +36,10 @@ class Automaps:
         # Searchbar element
         textbox = self.driver.find_element(By.ID, "searchboxinput") # or XmI62e for the form itself
         # Input address into searchbox , add petah tikva prefix to each local address
-        # text = address.split()
-        # if text[0].isnumeric():
-            # address = address[2:] + str(text[0])
-        # print(text, "".join(text)) 
-        # print(address, text, text[0])
         textbox.send_keys("פתח תקווה," + address )#text)#address + " פתח תקווה ")
         textbox.send_keys(Keys.ENTER)
 
-    # Generalize this method to take list name as string and integrate in xpath search or by name
-    def save_to_list(self, listName): #def save_to_list(driver, locations_list):
+    def save_to_list(self, listName): 
         button = self.driver.find_element(By.CSS_SELECTOR, "#QA0Szd>div>div>div.w6VYqd>div.bJzME.tTVLSc>div>div.e07Vkf.kA9KIf>div>div>div.m6QErb.Pf6ghf.ecceSd.tLjsW>div:nth-child(2)>button")
         foo = "Bouldering"
         button.click()
