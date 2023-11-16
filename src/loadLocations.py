@@ -45,10 +45,14 @@ class Automaps:
         textbox.send_keys(Keys.ENTER)
 
     # Generalize this method to take list name as string and integrate in xpath search or by name
-    def save_to_list(self): #def save_to_list(driver, locations_list):
+    def save_to_list(self, listName): #def save_to_list(driver, locations_list):
         button = self.driver.find_element(By.CSS_SELECTOR, "#QA0Szd>div>div>div.w6VYqd>div.bJzME.tTVLSc>div>div.e07Vkf.kA9KIf>div>div>div.m6QErb.Pf6ghf.ecceSd.tLjsW>div:nth-child(2)>button")
+        foo = "Bouldering"
         button.click()
-        bombSheltersList = self.driver.find_element(By.CSS_SELECTOR, "#fDahXd div:nth-of-type(6)")
+        # bombSheltersList = self.driver.find_element(By.CSS_SELECTOR, "#fDahXd div:nth-of-type(6)") # this just saves to the 6th indexed list in the dropdown menu
+        # bombSheltersList = self.driver.find_element(By.XPATH,"//div[text()='" + foo + "']") # why does this xpath leads to error: Message:elemnt click intercepted:... 
+        # ... Other element would receive the click: ...
+        bombSheltersList = self.driver.find_element(By.XPATH,"//div[.='" + foo + "']")
         bombSheltersList.click()
     def add_note(self, note):
         button = self.driver.find_element(By.CSS_SELECTOR, "#QA0Szd > div > div > div.w6VYqd > div.bJzME.tTVLSc > div > div.e07Vkf.kA9KIf > div > div > div:nth-child(7) > div > div.m6QErb.Duzcee > div.m6QErb.tLjsW > div:nth-child(1) > button > div")
@@ -61,9 +65,11 @@ class Automaps:
 def main():
     GMAPS_URL ="https://www.google.com/maps/@32.0851663,34.8955189,15z?authuser=0&entry=ttu" 
     auto = Automaps(GMAPS_URL)
+    LIST_NAME = ""
+    '''
     #driver = launch_gmaps()
     # with open("addresses_wrk_cpy.txt", 'rt') as ADDR_FILE:
-    notes = open("notes.txt",rt)
+    notes = open("notes.txt",'rt')
     with open("testfile.txt", 'rt') as ADDR_FILE:
         for address in ADDR_FILE:
 
@@ -75,7 +81,7 @@ def main():
             time.sleep(1)
             try:
                 # adding notes modification:
-                # auto.save_to_list()
+                # auto.save_to_list(LIST_NAME)
                 auto.add_note(note)
 
             except Exception as e:
@@ -83,9 +89,16 @@ def main():
             time.sleep(1) 
             # Clear searchbox
             auto.clear_searchbar()
+    '''
+    auto.enter_address("orlife")
+    time.sleep(2)
+    try:
+        auto.save_to_list()
+    except Exception as e:
+        print(e)
+    time.sleep(4)
     auto.driver.quit()
-    notes.close()
-            
+    # notes.close()
 if __name__ == "__main__":
     main()
 #drive.quit() #if the page opens but no action is taken(it freezes) it means the page's already open/in use elsewhere!
