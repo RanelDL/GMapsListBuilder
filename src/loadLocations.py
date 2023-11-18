@@ -25,7 +25,7 @@ class Automaps:
                 pos = file.tell()
                 # if txt file not empty: read file contents as path
                 if  pos != 0:
-                    file.seek(0,0) # opened on append, cursor has to be reset
+                    file.seek(0,0) # opened in append mode, cursor has to be reset
                     path = file.readline() 
 
                 # empty, open file explorer 
@@ -47,7 +47,7 @@ class Automaps:
         # Chrome options to load signed-in chrome profile
         chrome_options = Options()
         # Path should be something like:
-        # "C:\\Users\\USER\\AppData\\Local\\Google\\Chrome for Testing\\User Data\\") # Opens chrome profile
+        # "C:\\Users\\USER\\AppData\\Local\\Google\\Chrome\\User Data\\") # Opens chrome profile
         chrome_options.add_argument("--user-data-dir=" + self.USER_DATA_PATH) 
         chrome_options.add_experimental_option("detach", True)
 
@@ -61,16 +61,13 @@ class Automaps:
 
     def enter_address(self, address):
         # Searchbar element
-        textbox = self.driver.find_element(By.ID, "searchboxinput") # or XmI62e for the form itself
-        textbox.send_keys( address )#text)#address + " פתח תקווה ")
+        textbox = self.driver.find_element(By.ID, "searchboxinput")
+        textbox.send_keys( address )
         textbox.send_keys(Keys.ENTER)
 
     def save_to_list(self, listName): 
         button = self.driver.find_element(By.CSS_SELECTOR, "#QA0Szd>div>div>div.w6VYqd>div.bJzME.tTVLSc>div>div.e07Vkf.kA9KIf>div>div>div.m6QErb.Pf6ghf.ecceSd.tLjsW>div:nth-child(2)>button")
         button.click()
-        # bombSheltersList = self.driver.find_element(By.CSS_SELECTOR, "#fDahXd div:nth-of-type(6)") # this just saves to the 6th indexed list in the dropdown menu
-        # bombSheltersList = self.driver.find_element(By.XPATH,"//div[text()='" + foo + "']") # why does this xpath leads to error: Message:elemnt click intercepted:... 
-        # ... Other element would receive the click: ...
         bombSheltersList = self.driver.find_element(By.XPATH,"//div[.='" + listName + "']")
         bombSheltersList.click()
 
@@ -83,43 +80,7 @@ class Automaps:
         doneButton.click()
 
 def main():
-    GMAPS_URL ="https://www.google.com/maps/@32.0851663,34.8955189,15z?authuser=0&entry=ttu" 
-    auto = Automaps(GMAPS_URL)
-    LIST_NAME = "Bouldering"
-    '''
-    #driver = launch_gmaps()
-    # with open("addresses_wrk_cpy.txt", 'rt') as ADDR_FILE:
-    notes = open("notes.txt",'rt')
-    with open("testfile.txt", 'rt') as ADDR_FILE:
-        for address in ADDR_FILE:
-
-            note = notes.readline()
-            
-            auto.enter_address(address)
-
-            # Click "save" button (opens save-dropdown menu) & save to 'bombshelters' list
-            time.sleep(1)
-            try:
-                # adding notes modification:
-                # auto.save_to_list(LIST_NAME)
-                auto.add_note(note)
-
-            except Exception as e:
-                print(e, " coudn't add: " + address)
-            time.sleep(1) 
-            # Clear searchbox
-            auto.clear_searchbar()
-    '''
-    auto.enter_address("orlife")
-    time.sleep(2)
-    try:
-        # auto.save_to_list()
-        pass
-    except Exception as e:
-        print(e)
-    time.sleep(4)
-    auto.driver.quit()
-    # notes.close()
+    pass
 if __name__ == "__main__":
     main()
 #drive.quit() #if the page opens but no action is taken(it freezes) it means the page's already open/in use elsewhere!

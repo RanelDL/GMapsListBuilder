@@ -19,11 +19,9 @@ def launch_ptkSite():
     for row in rows:
         cols = row.find_elements(By.XPATH, ".//td")
         # Address column
-        res = cols[1].text#[::-1]
-        # Format hebrew (split number from name, then append number to reversed street name)
+        res = cols[1].text
         res = res.rsplit(" ",1)
         if len(res) >= 2:
-            # res = res[1] +' '+ res[0]#[::-1]
             # res =  res[0] +' '+ res[1] # line for saving address only
             res =  res[0] +' '+ res[1] + ' ' + cols [2].text # # line for saving address and note 
         try:
@@ -32,9 +30,6 @@ def launch_ptkSite():
             print("error:{err} type:"+str(type(err)))
         print(res)
 
-        #address = row.find_elements(By.XPATH,'./*') # //*[@id="37,114,0"] //*[@id="37,114,0"]/td[2]
-        #print(address.text[::-1])
-        #print(row.text)
     ADDR_FILE.close()
     print("done")
     return driver
