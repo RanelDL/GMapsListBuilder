@@ -1,0 +1,2 @@
+* make compatible for csv and google sheets files
+* read addresses/locations from end of the list (from newest to oldest) and stop once reached an existing location

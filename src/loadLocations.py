@@ -78,9 +78,3 @@ class Automaps:
         textbox.send_keys(note)
         doneButton = self.driver.find_element(By.CSS_SELECTOR, "#modal-dialog > div > div.hoUMge > div > div.yFnP6d > div > div > div.vV6Pxc > div.LKVNAb > button.okDpye.PpaGLb.mta2Ab")
         doneButton.click()
-
-def main():
-    pass
-if __name__ == "__main__":
-    main()
-#drive.quit() #if the page opens but no action is taken(it freezes) it means the page's already open/in use elsewhere!
