@@ -1,2 +1,4 @@
 # GMapsListBuilder
-A google maps automation that creates a list of saved locations from a local list of addresses.
+A google chrome automation that reads from a local txt file of addresses and adds them into an existing google maps list.
+## Instructions:
+  1.  
